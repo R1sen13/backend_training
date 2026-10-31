@@ -16,6 +16,7 @@
     "start:prod": "node dist/main",
     "lint": "oxlint --type-aware src/ test/",
     "lint:fix": "oxlint --type-aware --fix src/ test/",
+    "fix": "npm run lint:fix && npm run format:fix",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
