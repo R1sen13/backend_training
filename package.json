@@ -25,10 +25,6 @@
     "fix": "npm run lint:fix && npm run format:fix",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config jest.config.ts",
-    "test:watch": "jest --config jest.config.ts --watch",
-    "test:cov": "jest --config jest.config.ts --coverage",
-    "test:debug": "node --inspect-brk --experimental-vm-modules -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config jest.config.ts --config ./test/jest-e2e.json",
     "check": "npm run typecheck && npm run lint && npm run format && npm run test",
     "prepare": "husky"
   },
