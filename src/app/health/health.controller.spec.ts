@@ -1,6 +1,7 @@
 import { HealthController } from './health.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HealthService } from './health.service';
+import { jest } from '@jest/globals';
 
 describe('HealthController', () => {
   let controller: HealthController;
