@@ -2,3 +2,7 @@ node_modules
 dist
 .env
 .git
+coverage
+.env.*
+!.env.example
+npm-debug.log*
