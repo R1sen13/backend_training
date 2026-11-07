@@ -1,43 +1,60 @@
 import { PrismaService } from '../../infrastructure/prisma/prisma.service';
 import { TaskCreationDto, TaskPatchingDto } from './dto/task.dto';
 import { randomUUID } from 'node:crypto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { TaskListResponseDto, TaskResponseDto } from './dto/task-response.dto';
 
 @Injectable()
 export class TaskService {
   constructor(private readonly prisma: PrismaService) {}
 
-  getTasks() {
-    return this.prisma.task.findMany();
+  async getTasks() {
+    const tasks = await this.prisma.task.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return new TaskListResponseDto(tasks);
   }
 
-  getTaskById(taskId: string) {
-    return this.prisma.task.findUnique({
+  async getTaskById(taskId: string) {
+    const task = await this.prisma.task.findUnique({
       where: {
         id: taskId,
       },
     });
+
+    if (!task) {
+      throw new NotFoundException(`Task with id ${taskId} not found`);
+    }
+
+    return new TaskResponseDto(task);
   }
 
-  postTask(body: TaskCreationDto) {
+  async postTask(body: TaskCreationDto) {
     const { name, completed } = body;
     const newTask = {
       id: randomUUID(),
       name,
       completed,
     };
-    return this.prisma.task.create({
+    const task = await this.prisma.task.create({
       data: newTask,
     });
+
+    return new TaskResponseDto(task);
   }
 
-  patchTask(taskId: string, task: TaskPatchingDto) {
-    return this.prisma.task.update({
+  async patchTask(taskId: string, task: TaskPatchingDto) {
+    const editedTask = await this.prisma.task.update({
       where: {
         id: taskId,
       },
       data: task,
     });
+
+    return new TaskResponseDto(editedTask);
   }
 
   deleteTask(taskId: string) {
