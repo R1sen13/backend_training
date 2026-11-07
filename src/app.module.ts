@@ -17,7 +17,7 @@ import { TasksModule } from './app/tasks/tasks.module';
     StorageModule,
     PrismaModule,
     HealthModule,
-    TasksModule
+    TasksModule,
   ],
 })
 export class AppModule {}

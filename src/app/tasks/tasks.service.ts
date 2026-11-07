@@ -44,7 +44,7 @@ export class TaskService {
     return this.prisma.task.delete({
       where: {
         id: taskId,
-      }
-    })
-  };
+      },
+    });
+  }
 }

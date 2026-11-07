@@ -1,11 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { TaskCreationDto, TaskPatchingDto } from './dto/task.dto';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
-
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Tasks')
-@Controller("/tasks")
+@Controller('/tasks')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
