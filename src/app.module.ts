@@ -4,6 +4,7 @@ import { HealthModule } from './app/health/health.module';
 import { environmentConfig } from './config/environment.config';
 import { RedisModule } from './infrastructure/redis/redis.module';
 import { StorageModule } from './infrastructure/storage/storage.module';
+import { PrismaModule } from './infrastructure/prisma/prisma.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { StorageModule } from './infrastructure/storage/storage.module';
     }),
     RedisModule,
     StorageModule,
+    PrismaModule,
     HealthModule,
   ],
 })
