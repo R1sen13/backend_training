@@ -1,12 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const globalPrefix = process.env.NODE_ENV === 'development' ? 'api' : '';
+
+  app.enableCors({
+    origin: [
+      'http://localhost:5173',
+      'http://172.18.0.1:5173',
+      'http://192.168.56.1:5173',
+      'http://192.168.0.14:5173',
+    ],
+  });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
   app.setGlobalPrefix(globalPrefix);
 
